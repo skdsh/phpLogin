@@ -1,23 +1,41 @@
     <?php
-    $con =  mysqli_connect('localhost','root','');
-    mysqli_select_db($con, "kundenkartei");
-        if ( $zaehlerstand = $_POST["zaehlerstand"]== TRUE) {
-            echo "<script>alert('Geben Sie um sicher zu gehen 
-            ein weiteres Mal Ihre Zählernummer ein:');</script>";
-        } else {
-            echo "<script>alert('Failure.');</script>";
-        }
-        
-        if(isset($_POST['submit'])){
-            $sql = "INSERT INTO zaehlerstand
-            (zaehlerstand) VALUES 
-            ('$zaehlerNr','$zaehlerstand')";
-        if($con->query($sql) === TRUE){
-            echo "Sie haben sich erfolgreich registriert: ";        
-  
+        //conncets to the server and select database
+        $con =  mysqli_connect('localhost','root','');
+        mysqli_select_db($con, "kundenkartei");
+
+        $zaehlerNR = $_POST["zaehlernummer"];
+        $zaehlerstand = $_POST["zaehlerstand"];
+        $datum = date('Y-m-d H:i:s');
+
+        if($zaehlerstand == "" or $zaehlerNR == ""){
+            echo "Du hast keinen Zählerstand angegeben!";
         }else{
-            echo "Dein Zählerstand konnte nicht erfassst werden.
-            Versuche es später nochmal!";
-        } $con->close();
-    }
+            $eintrag = "INSERT INTO zaehlerstaende
+            (zaehlerNR, zaehlerstand, aeDatum)
+            VALUES 
+            ('$zaehlerNR', '$zaehlerstand', '$datum')";
+            $eintragen = mysqli_query($con, $eintrag);
+
+            echo "Dein Zählerstand wurde übernommen!";
+        }
 ?>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Wasserwerke Eingabe Zählerstand</title>
+	<link rel="stylesheet" type="text/css" href="login.css">
+</head>
+<body id="body">
+    <form method="post">
+            Bitte geben sie nocheinmal ihre Zählernummer an, danke:<input type="text" name="zaehlernummer"></br>
+            Bitte geben sie den Zählerstand ein:<input type="text" name="zaehlerstand">
+            <input type="submit" value="Bestätigen!"/>
+    </form>
+	
+    <a href="login.php">Login</a>
+    <a href="auswahl.php">Home</a>
+
+</body>
+	
+</html>

@@ -65,6 +65,6 @@ body{
   <input type="submit" name="submit" id="btn" value="Register">
 </form>
 <a href="login.php">Login</a>
-<a href="index.php">Home</a>
+<a href="auswahl.php">Home</a>
 </body>
 </html>

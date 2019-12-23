@@ -40,7 +40,7 @@ body{
   background-image: url("images/dark.jpg");
 }
 </style>
-<form method="post" >
+<form action= "auswahl.php" method="post" >
 <!--action="processLogin.php"-->
   <div id= frm>
    <p> <label for="knachname">Nachname:</label>
